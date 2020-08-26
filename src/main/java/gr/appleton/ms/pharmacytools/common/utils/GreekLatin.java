@@ -21,7 +21,7 @@ public final class GreekLatin {
 
         final StringBuilder sb = new StringBuilder();
 
-        if (greekWord != null && !greekWord.equals("")) {
+        if (greekWord != null && !greekWord.isEmpty()) {
             final String greekWordToLowerCase = greekWord.toLowerCase();
             final Map<String, String> values = new HashMap<>();
 
