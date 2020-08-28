@@ -241,17 +241,18 @@ public class AccessManagementController {
      * @throws GenericException the generic exception
      */
     @PostMapping(Endpoints.PASS_CHANGE)
-    public ResponseEntity<CommonModel> passwordChange(@Valid @RequestBody final ChangePass req)
+    public ResponseEntity<CommonModel> passwordChange(@Email @RequestHeader(AGENT) final String username,
+                                                      @Valid @RequestBody final ChangePass req)
         throws GenericException {
 
-        int status = access.authenticate(req.getUsername(), req.getPass());
+        int status = access.authenticate(username, req.getPass());
 
         int code = OK.getCode();
         String message = OK.getMessage();
         HttpStatus httpStatus = HttpStatus.OK;
 
         if (status == AuthenticationStatus.OK.getCode()) {
-            access.changeUserPassword(req.getUsername(), req.getUpdatedPass());
+            access.changeUserPassword(username, req.getUpdatedPass());
         } else {
             if (status == AuthenticationStatus.USER_NOT_FOUND.getCode()) {
                 code = ClientResponses.UNAUTH.getCode();
