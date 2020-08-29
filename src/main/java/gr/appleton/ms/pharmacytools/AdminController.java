@@ -6,6 +6,7 @@ import gr.appleton.ms.pharmacytools.common.constants.Endpoints;
 import gr.appleton.ms.pharmacytools.common.utils.CacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * The Admin Controller class.
  */
+@CrossOrigin
 @RestController
 @Slf4j
 public class AdminController {
