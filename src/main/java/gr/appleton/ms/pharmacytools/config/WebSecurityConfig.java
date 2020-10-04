@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -76,7 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .mvcMatchers("/public/**").permitAll()
             .mvcMatchers("/actuator/health").permitAll()
             .mvcMatchers("/actuator/**").hasAnyRole(SYS_ADMIN)
-            .mvcMatchers("/management/**").hasRole(SYS_ADMIN)
+            .mvcMatchers(HttpMethod.POST, "/management/**").hasRole(SYS_ADMIN)
+            .mvcMatchers(HttpMethod.PUT, "/management/**").hasRole(SYS_ADMIN)
+            .mvcMatchers(HttpMethod.DELETE, "/management/**").hasRole(SYS_ADMIN)
             .mvcMatchers("/access/register").hasAnyRole(POWER_USER, SYS_ADMIN)
             .mvcMatchers("/api/**").hasAnyRole(USER, POWER_USER)
             // all other requests need to be validated
