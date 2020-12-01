@@ -8,7 +8,6 @@ public final class Constants {
     public static final String AGENT = "Agent";
     public static final String AUTHORIZATION = "Authorization";
     public static final String OK = "OK";
-    public static final String NOK = "NOK";
 
     private Constants() {
     }
