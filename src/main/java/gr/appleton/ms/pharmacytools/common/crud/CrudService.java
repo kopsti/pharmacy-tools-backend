@@ -44,11 +44,10 @@ public interface CrudService<M, D> {
     /**
      * Retrieve all entities.
      *
-     * @param q the query to filter results
      * @return the entities that were retrieved
      * @throws GenericException the generic exception
      */
-    List<M> retrieveAll(final String q) throws GenericException;
+    List<M> retrieveAll() throws GenericException;
 
     /**
      * Update an entity.

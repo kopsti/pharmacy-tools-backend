@@ -1,7 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.suppliers;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -11,7 +9,6 @@ import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import gr.appleton.ms.pharmacytools.models.suppliers.dto.SupplierDao;
 import gr.appleton.ms.pharmacytools.models.suppliers.dto.SupplierModel;
-import gr.appleton.ms.pharmacytools.models.suppliers.filtering.SupplierPredicatesBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -24,7 +21,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public final class SupplierService extends AbstractServiceCrud<SupplierModel, SupplierDao, SupplierPredicatesBuilder>
+public final class SupplierService extends AbstractServiceCrud<SupplierModel, SupplierDao>
     implements CrudService<SupplierModel, SupplierDao> {
 
     private final SupplierRepository suppliers;
@@ -78,16 +75,6 @@ public final class SupplierService extends AbstractServiceCrud<SupplierModel, Su
         dao.setComments(model.getComments());
         dao.setQComments(GreekLatin.greek2latin(model.getComments()));
         return dao;
-    }
-
-    @Override
-    public Iterable<SupplierDao> queryDaos(final BooleanExpression exp) {
-        return suppliers.findAll(exp != null ? exp : Expressions.asBoolean(true).isTrue());
-    }
-
-    @Override
-    public Class<SupplierPredicatesBuilder> getBuilder() {
-        return SupplierPredicatesBuilder.class;
     }
 
     @Override

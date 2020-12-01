@@ -1,7 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.accounts;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -11,7 +9,6 @@ import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountDao;
 import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountModel;
-import gr.appleton.ms.pharmacytools.models.accounts.filtering.BankAccountPredicatesBuilder;
 import gr.appleton.ms.pharmacytools.models.banks.BankService;
 import gr.appleton.ms.pharmacytools.models.suppliers.SupplierService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +23,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public class BankAccountService
-    extends AbstractServiceCrud<BankAccountModel, BankAccountDao, BankAccountPredicatesBuilder>
+public class BankAccountService extends AbstractServiceCrud<BankAccountModel, BankAccountDao>
     implements CrudService<BankAccountModel, BankAccountDao> {
 
     private final BankAccountRepository bankAccounts;
@@ -54,11 +50,6 @@ public class BankAccountService
     @Override
     public CrudRepository<BankAccountDao, Long> repository() {
         return bankAccounts;
-    }
-
-    @Override
-    public Iterable<BankAccountDao> queryDaos(final BooleanExpression exp) {
-        return bankAccounts.findAll(exp != null ? exp : Expressions.asBoolean(true).isTrue());
     }
 
     @Override
@@ -115,11 +106,6 @@ public class BankAccountService
         bankAccount.setDeleted(true);
         bankAccount.setDeleteTimestamp(new Date());
         repository().save(bankAccount);
-    }
-
-    @Override
-    public Class<BankAccountPredicatesBuilder> getBuilder() {
-        return BankAccountPredicatesBuilder.class;
     }
 
 }

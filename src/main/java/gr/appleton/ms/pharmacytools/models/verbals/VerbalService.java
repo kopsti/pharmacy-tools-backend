@@ -1,6 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.verbals;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.constants.ExceptionMessages;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class VerbalService extends AbstractServiceCrud<VerbalModel, VerbalDao, Object>
+public class VerbalService extends AbstractServiceCrud<VerbalModel, VerbalDao>
     implements CrudService<VerbalModel, VerbalDao> {
 
     private final VerbalRepository verbals;
@@ -59,11 +58,6 @@ public class VerbalService extends AbstractServiceCrud<VerbalModel, VerbalDao, O
         dao.setKey(model.getKey());
         dao.setVerbal(model.getValue());
         return dao;
-    }
-
-    @Override
-    public Iterable<VerbalDao> queryDaos(final BooleanExpression exp) {
-        return verbals.findAll();
     }
 
     @Override

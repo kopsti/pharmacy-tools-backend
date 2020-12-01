@@ -1,7 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.notes;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -11,7 +9,6 @@ import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteDao;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteModel;
-import gr.appleton.ms.pharmacytools.models.notes.filtering.NotePredicatesBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -24,7 +21,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao, NotePredicatesBuilder>
+public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao>
     implements CrudService<NoteModel, NoteDao> {
 
     private final NoteRepository notes;
@@ -47,11 +44,6 @@ public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao, N
     }
 
     @Override
-    public Iterable<NoteDao> queryDaos(final BooleanExpression exp) {
-        return notes.findAll(exp != null ? exp : Expressions.asBoolean(true).isTrue());
-    }
-
-    @Override
     public NoteModel dao2Model(final NoteDao dao) {
         final NoteModel model = new NoteModel();
         model.setId(dao.getId());
@@ -65,7 +57,7 @@ public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao, N
     }
 
     @Override
-    public NoteDao model2Dao(final NoteModel model, NoteDao dao, final UserDao userDao) throws GenericException {
+    public NoteDao model2Dao(final NoteModel model, NoteDao dao, final UserDao userDao) {
         if (dao == null) {
             dao = new NoteDao();
         }
@@ -97,11 +89,6 @@ public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao, N
         note.setDeleted(true);
         note.setDeleteTimestamp(new Date());
         repository().save(note);
-    }
-
-    @Override
-    public Class<NotePredicatesBuilder> getBuilder() {
-        return NotePredicatesBuilder.class;
     }
 
 }

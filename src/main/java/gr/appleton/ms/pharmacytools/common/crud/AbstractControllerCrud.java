@@ -80,7 +80,7 @@ public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> i
         throws GenericException {
 
         final CollectionModel<R> collectionModel = new CollectionModel<>(
-            service().retrieveAll(q).stream().map(model -> getResource(model, false)).collect(Collectors.toList()));
+            service().retrieveAll().stream().map(model -> getResource(model, false)).collect(Collectors.toList()));
 
         collectionModel.add(new Link(ServletUriComponentsBuilder.fromCurrentRequest().build().toUriString(), "self"));
 

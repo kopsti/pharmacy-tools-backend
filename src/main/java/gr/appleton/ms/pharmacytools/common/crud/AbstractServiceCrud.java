@@ -1,11 +1,9 @@
 package gr.appleton.ms.pharmacytools.common.crud;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.constants.ExceptionMessages;
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
 import gr.appleton.ms.pharmacytools.common.utils.CommonService;
-import gr.appleton.ms.pharmacytools.common.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +16,9 @@ import java.util.stream.Collectors;
  *
  * @param <M> the type parameter for Model
  * @param <D> the type parameter for Dao
- * @param <B> the type parameter
  */
 @Slf4j
-public abstract class AbstractServiceCrud<M, D, B> implements CrudService<M, D> {
+public abstract class AbstractServiceCrud<M, D> implements CrudService<M, D> {
 
     private final CommonService common;
 
@@ -50,9 +47,15 @@ public abstract class AbstractServiceCrud<M, D, B> implements CrudService<M, D> 
         return dao2Model(retrieveDaoById(id));
     }
 
+    /**
+     * Retrieve all list.
+     *
+     * @return the list
+     * @throws GenericException the generic exception
+     */
     @Override
-    public List<M> retrieveAll(final String q) throws GenericException {
-        final Iterable<D> daos = queryDaos(Utilities.getExpression(getBuilder(), q));
+    public List<M> retrieveAll() throws GenericException {
+        final Iterable<D> daos = repository().findAll();
         try {
             return Lists.newArrayList(daos).stream().map(this::dao2Model).collect(Collectors.toList());
         } catch (final Exception e) {
@@ -149,27 +152,6 @@ public abstract class AbstractServiceCrud<M, D, B> implements CrudService<M, D> 
      * @throws GenericException the generic exception
      */
     public void addInBin(final long id) throws GenericException {
-    }
-
-    /**
-     * Query daos iterable.
-     *
-     * @param exp the exp
-     * @return the iterable
-     */
-    public Iterable<D> queryDaos(final BooleanExpression exp) {
-        //should be overwritten
-        return null;
-    }
-
-    /**
-     * Gets builder.
-     *
-     * @return the builder
-     */
-    public Class<B> getBuilder() {
-        //should be overwritten
-        return null;
     }
 
 }

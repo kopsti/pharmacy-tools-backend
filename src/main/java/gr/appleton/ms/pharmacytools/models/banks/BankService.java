@@ -1,6 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.banks;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class BankService extends AbstractServiceCrud<BankModel, BankDao, Object>
+public class BankService extends AbstractServiceCrud<BankModel, BankDao>
     implements CrudService<BankModel, BankDao> {
 
     private final BankRepository banks;
@@ -45,11 +44,6 @@ public class BankService extends AbstractServiceCrud<BankModel, BankDao, Object>
         model.setId(dao.getId());
         model.setTitle(dao.getTitle());
         return model;
-    }
-
-    @Override
-    public Iterable<BankDao> queryDaos(final BooleanExpression exp) {
-        return banks.findAll();
     }
 
     @Override

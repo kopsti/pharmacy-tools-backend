@@ -1,7 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.customers;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -11,7 +9,6 @@ import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import gr.appleton.ms.pharmacytools.models.customers.dto.CustomerDao;
 import gr.appleton.ms.pharmacytools.models.customers.dto.CustomerModel;
-import gr.appleton.ms.pharmacytools.models.customers.filtering.CustomerPredicatesBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -24,7 +21,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public final class CustomerService extends AbstractServiceCrud<CustomerModel, CustomerDao, CustomerPredicatesBuilder>
+public final class CustomerService extends AbstractServiceCrud<CustomerModel, CustomerDao>
     implements CrudService<CustomerModel, CustomerDao> {
 
     private final CustomerRepository customers;
@@ -44,11 +41,6 @@ public final class CustomerService extends AbstractServiceCrud<CustomerModel, Cu
     @Override
     public CrudRepository<CustomerDao, Long> repository() {
         return customers;
-    }
-
-    @Override
-    public Iterable<CustomerDao> queryDaos(final BooleanExpression exp) {
-        return customers.findAll(exp != null ? exp : Expressions.asBoolean(true).isTrue());
     }
 
     @Override
@@ -104,11 +96,6 @@ public final class CustomerService extends AbstractServiceCrud<CustomerModel, Cu
         customer.setDeleted(true);
         customer.setDeleteTimestamp(new Date());
         repository().save(customer);
-    }
-
-    @Override
-    public Class<CustomerPredicatesBuilder> getBuilder() {
-        return CustomerPredicatesBuilder.class;
     }
 
 }

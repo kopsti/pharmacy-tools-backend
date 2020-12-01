@@ -1,7 +1,5 @@
 package gr.appleton.ms.pharmacytools.models.orders;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
@@ -12,7 +10,6 @@ import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import gr.appleton.ms.pharmacytools.models.customers.CustomerService;
 import gr.appleton.ms.pharmacytools.models.orders.dto.OrderDao;
 import gr.appleton.ms.pharmacytools.models.orders.dto.OrderModel;
-import gr.appleton.ms.pharmacytools.models.orders.filtering.OrderPredicatesBuilder;
 import gr.appleton.ms.pharmacytools.models.suppliers.SupplierService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-public final class OrderService extends AbstractServiceCrud<OrderModel, OrderDao, OrderPredicatesBuilder>
+public final class OrderService extends AbstractServiceCrud<OrderModel, OrderDao>
     implements CrudService<OrderModel, OrderDao> {
 
     private final OrderRepository orders;
@@ -53,11 +50,6 @@ public final class OrderService extends AbstractServiceCrud<OrderModel, OrderDao
     @Override
     public CrudRepository<OrderDao, Long> repository() {
         return orders;
-    }
-
-    @Override
-    public Iterable<OrderDao> queryDaos(final BooleanExpression exp) {
-        return orders.findAll(exp != null ? exp : Expressions.asBoolean(true).isTrue());
     }
 
     @Override
@@ -125,11 +117,6 @@ public final class OrderService extends AbstractServiceCrud<OrderModel, OrderDao
         order.setDeleted(true);
         order.setDeleteTimestamp(new Date());
         repository().save(order);
-    }
-
-    @Override
-    public Class<OrderPredicatesBuilder> getBuilder() {
-        return OrderPredicatesBuilder.class;
     }
 
 }
