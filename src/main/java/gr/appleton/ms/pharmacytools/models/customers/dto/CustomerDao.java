@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,17 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
+@NamedQuery(
+    name = "CustomerDao.findByWildcard",
+    query = "select c from CustomerDao c where "
+        + "c.qFirstName like concat('%',:wildcard,'%') "
+        + "or c.qLastName like concat('%',:wildcard,'%') "
+        + "or c.qAddress like concat('%',:wildcard,'%') "
+        + "or c.mobilePhoneNumber like concat('%',:wildcard,'%') "
+        + "or c.homePhoneNumber like concat('%',:wildcard,'%') "
+        + "or c.email like concat('%',:wildcard,'%') "
+        + "or c.qComments like concat('%',:wildcard,'%')"
+)
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.CUSTOMERS)
 public final class CustomerDao {
