@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,17 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
+@NamedQuery(
+    name = "SupplierDao.findByWildcard",
+    query = "select s from SupplierDao s where "
+        + "s.qDescription like concat('%',:wildcard,'%') "
+        + "or s.qTitle like concat('%',:wildcard,'%') "
+        + "or s.email like concat('%',:wildcard,'%') "
+        + "or s.phoneNumber like concat('%',:wildcard,'%') "
+        + "or s.taxAuthority like concat('%',:wildcard,'%') "
+        + "or s.taxId like concat('%',:wildcard,'%') "
+        + "or s.qComments like concat('%',:wildcard,'%')"
+)
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.SUPPLIERS)
 public final class SupplierDao {
