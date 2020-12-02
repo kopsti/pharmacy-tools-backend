@@ -4,6 +4,7 @@ import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.constants.ExceptionMessages;
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
 import gr.appleton.ms.pharmacytools.common.utils.CommonService;
+import gr.appleton.ms.pharmacytools.common.utils.GreekLatin;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,9 @@ public abstract class AbstractServiceCrud<M, D> implements CrudService<M, D> {
      */
     @Override
     public List<M> retrieveAll(final String q) throws GenericException {
-        final Iterable<D> daos = q != null ? repository().findByWildCard(q) : repository().findAll();
+        final Iterable<D> daos = q != null
+            ? repository().findByWildCard(GreekLatin.greek2latin(q))
+            : repository().findAll();
         try {
             return Lists.newArrayList(daos).stream().map(this::dao2Model).collect(Collectors.toList());
         } catch (final Exception e) {
