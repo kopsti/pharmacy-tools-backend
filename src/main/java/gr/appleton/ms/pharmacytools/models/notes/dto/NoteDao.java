@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,12 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
+@NamedQuery(
+    name = "NoteDao.findByWildcard",
+    query = "select n from NoteDao n where "
+    + "n.qContent like concat('%',:wildcard,'%') "
+    + "or n.qComments like concat('%',:wildcard,'%')"
+)
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.NOTES)
 public final class NoteDao {
