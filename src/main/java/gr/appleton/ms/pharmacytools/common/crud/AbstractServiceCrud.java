@@ -57,7 +57,7 @@ public abstract class AbstractServiceCrud<M, D> implements CrudService<M, D> {
     @Override
     public List<M> retrieveAll(final String q) throws GenericException {
         final Iterable<D> daos = q != null
-            ? repository().findByWildCard(GreekLatin.greek2latin(q))
+            ? repository().findByWildcard(GreekLatin.greek2latin(q))
             : repository().findAll();
         try {
             return Lists.newArrayList(daos).stream().map(this::dao2Model).collect(Collectors.toList());
