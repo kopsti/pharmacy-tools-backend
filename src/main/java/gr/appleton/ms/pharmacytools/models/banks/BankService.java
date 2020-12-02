@@ -3,12 +3,12 @@ package gr.appleton.ms.pharmacytools.models.banks;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
+import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.models.banks.dto.BankDao;
 import gr.appleton.ms.pharmacytools.models.banks.dto.BankModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,7 +34,7 @@ public class BankService extends AbstractServiceCrud<BankModel, BankDao>
     }
 
     @Override
-    public CrudRepository<BankDao, Long> repository() {
+    public MyCrudRepository<BankDao, Long> repository() {
         return banks;
     }
 

@@ -1,7 +1,7 @@
 package gr.appleton.ms.pharmacytools.models.verbals;
 
+import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.models.verbals.dto.VerbalDao;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Optional;
  * The repository responsible to handle DB operations for Verbal records management.
  */
 @Repository
-public interface VerbalRepository extends CrudRepository<VerbalDao, Long> {
+public interface VerbalRepository extends MyCrudRepository<VerbalDao, Long> {
 
     /**
      * Find all Verbal records by key.

@@ -44,10 +44,11 @@ public interface CrudService<M, D> {
     /**
      * Retrieve all entities.
      *
+     * @param q the q
      * @return the entities that were retrieved
      * @throws GenericException the generic exception
      */
-    List<M> retrieveAll() throws GenericException;
+    List<M> retrieveAll(final String q) throws GenericException;
 
     /**
      * Update an entity.
@@ -73,6 +74,6 @@ public interface CrudService<M, D> {
      *
      * @return the crud repository
      */
-    CrudRepository<D, Long> repository();
+    MyCrudRepository<D, Long> repository();
 
 }

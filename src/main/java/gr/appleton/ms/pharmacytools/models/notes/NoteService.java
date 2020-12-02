@@ -3,6 +3,7 @@ package gr.appleton.ms.pharmacytools.models.notes;
 import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
+import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.common.dto.ModelCommonProperties;
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
 import gr.appleton.ms.pharmacytools.common.utils.CommonService;
@@ -11,7 +12,6 @@ import gr.appleton.ms.pharmacytools.models.notes.dto.NoteDao;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -39,7 +39,7 @@ public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao>
     }
 
     @Override
-    public CrudRepository<NoteDao, Long> repository() {
+    public MyCrudRepository<NoteDao, Long> repository() {
         return notes;
     }
 

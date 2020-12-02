@@ -4,13 +4,13 @@ import gr.appleton.ms.pharmacytools.authorization.persistence.UserDao;
 import gr.appleton.ms.pharmacytools.common.constants.ExceptionMessages;
 import gr.appleton.ms.pharmacytools.common.crud.AbstractServiceCrud;
 import gr.appleton.ms.pharmacytools.common.crud.CrudService;
+import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
 import gr.appleton.ms.pharmacytools.common.utils.CommonService;
 import gr.appleton.ms.pharmacytools.models.verbals.dto.VerbalDao;
 import gr.appleton.ms.pharmacytools.models.verbals.dto.VerbalModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,7 +36,7 @@ public class VerbalService extends AbstractServiceCrud<VerbalModel, VerbalDao>
     }
 
     @Override
-    public CrudRepository<VerbalDao, Long> repository() {
+    public MyCrudRepository<VerbalDao, Long> repository() {
         return verbals;
     }
 

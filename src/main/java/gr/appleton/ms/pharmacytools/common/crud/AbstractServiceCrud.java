@@ -54,8 +54,8 @@ public abstract class AbstractServiceCrud<M, D> implements CrudService<M, D> {
      * @throws GenericException the generic exception
      */
     @Override
-    public List<M> retrieveAll() throws GenericException {
-        final Iterable<D> daos = repository().findAll();
+    public List<M> retrieveAll(final String q) throws GenericException {
+        final Iterable<D> daos = q != null ? repository().findByWildCard(q) : repository().findAll();
         try {
             return Lists.newArrayList(daos).stream().map(this::dao2Model).collect(Collectors.toList());
         } catch (final Exception e) {

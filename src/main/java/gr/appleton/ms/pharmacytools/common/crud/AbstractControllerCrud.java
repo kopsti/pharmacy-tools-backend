@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.ArrayList;
@@ -63,12 +64,13 @@ public abstract class AbstractControllerCrud<R, M extends AbstractModel, D> impl
     /**
      * Retrieve all entities.
      *
+     * @param q the wildcard search
      * @return the entities that were retrieved
      * @throws GenericException the generic exception
      */
     @GetMapping
-    public ResponseEntity<R> retrieveAll() throws GenericException {
-        return ResponseEntity.ok(getListResource(new ArrayList<>(service().retrieveAll())));
+    public ResponseEntity<R> retrieveAll(@RequestParam(value = "q", required = false) final String q) throws GenericException {
+        return ResponseEntity.ok(getListResource(new ArrayList<>(service().retrieveAll(q))));
     }
 
     /**

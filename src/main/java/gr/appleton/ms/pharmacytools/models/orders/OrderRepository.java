@@ -1,5 +1,6 @@
 package gr.appleton.ms.pharmacytools.models.orders;
 
+import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.models.orders.dto.OrderDao;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Repository;
  * The repository responsible to handle DB operations for Selling Order records management.
  */
 @Repository
-public interface OrderRepository extends CrudRepository<OrderDao, Long> {
+public interface OrderRepository extends MyCrudRepository<OrderDao, Long> {
 
+    @Override
     @Query("from OrderDao where "
         + "qProduct like concat('%',:wildcard,'%') "
         + "or supplier.qTitle like concat('%',:wildcard,'%') "
