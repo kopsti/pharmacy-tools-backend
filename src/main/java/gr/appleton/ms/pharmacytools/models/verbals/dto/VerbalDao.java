@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
+@NamedQuery(name = "VerbalDao.findByWildcard", query = "select v from VerbalDao v")
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.VERBALS)
 public class VerbalDao {

@@ -2,6 +2,7 @@ package gr.appleton.ms.pharmacytools.models.verbals;
 
 import gr.appleton.ms.pharmacytools.common.crud.MyCrudRepository;
 import gr.appleton.ms.pharmacytools.models.verbals.dto.VerbalDao;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -19,5 +20,8 @@ public interface VerbalRepository extends MyCrudRepository<VerbalDao, Long> {
      * @return the optional
      */
     Optional<VerbalDao> findAllByKey(final String key);
+
+    @Override
+    Iterable<VerbalDao> findByWildcard(@Param("wildcard") String wildcard);
 
 }
