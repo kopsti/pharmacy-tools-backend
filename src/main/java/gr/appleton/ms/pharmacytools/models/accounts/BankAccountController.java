@@ -6,24 +6,23 @@ import gr.appleton.ms.pharmacytools.common.crud.CrudService;
 import gr.appleton.ms.pharmacytools.common.dto.CommonModel;
 import gr.appleton.ms.pharmacytools.common.enumerations.ClientResponses;
 import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountDao;
-import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountListResource;
 import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountModel;
 import gr.appleton.ms.pharmacytools.models.accounts.dto.BankAccountResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * The controller responsible to handle requests for Bank Account instances management.
  */
 @CrossOrigin
 @RestController
-@RequestMapping(value = Endpoints.BANK_ACCOUNTS, produces = MediaTypes.HAL_JSON_VALUE)
+@RequestMapping(value = Endpoints.BANK_ACCOUNTS)
 public class BankAccountController
-    extends AbstractControllerCrud<BankAccountResource, BankAccountListResource, BankAccountModel, BankAccountDao> {
+    extends AbstractControllerCrud<BankAccountResource, BankAccountModel, BankAccountDao> {
 
     private static final ClientResponses OK = ClientResponses.OK;
 
@@ -45,13 +44,13 @@ public class BankAccountController
     }
 
     @Override
-    public BankAccountResource getResource(final BankAccountModel getModel, final boolean withCommon) {
-        return new BankAccountResource(new CommonModel(null, OK.getCode(), OK.getMessage()), getModel, withCommon);
+    public BankAccountResource getResource(final BankAccountModel getModel) {
+        return new BankAccountResource(new CommonModel(null, OK.getCode(), OK.getMessage()), getModel);
     }
 
     @Override
-    public BankAccountListResource getListResource(final CollectionModel<BankAccountResource> collectionModel) {
-        return new BankAccountListResource(new CommonModel(null, OK.getCode(), OK.getMessage()), collectionModel);
+    public BankAccountResource getListResource(final List<BankAccountModel> models) {
+        return new BankAccountResource(new CommonModel(null, OK.getCode(), OK.getMessage()), models);
     }
 
 }

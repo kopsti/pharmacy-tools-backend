@@ -6,23 +6,22 @@ import gr.appleton.ms.pharmacytools.common.crud.CrudService;
 import gr.appleton.ms.pharmacytools.common.dto.CommonModel;
 import gr.appleton.ms.pharmacytools.common.enumerations.ClientResponses;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteDao;
-import gr.appleton.ms.pharmacytools.models.notes.dto.NoteListResource;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteModel;
 import gr.appleton.ms.pharmacytools.models.notes.dto.NoteResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * The controller responsible to handle requests for Note instances management.
  */
 @CrossOrigin
 @RestController
-@RequestMapping(value = Endpoints.NOTES, produces = MediaTypes.HAL_JSON_VALUE)
-public class NoteController extends AbstractControllerCrud<NoteResource, NoteListResource, NoteModel, NoteDao> {
+@RequestMapping(value = Endpoints.NOTES)
+public class NoteController extends AbstractControllerCrud<NoteResource, NoteModel, NoteDao> {
 
     private static final ClientResponses OK = ClientResponses.OK;
 
@@ -44,13 +43,13 @@ public class NoteController extends AbstractControllerCrud<NoteResource, NoteLis
     }
 
     @Override
-    public NoteResource getResource(final NoteModel getModel, final boolean withCommon) {
-        return new NoteResource(new CommonModel(null, OK.getCode(), OK.getMessage()), getModel, withCommon);
+    public NoteResource getResource(final NoteModel getModel) {
+        return new NoteResource(new CommonModel(null, OK.getCode(), OK.getMessage()), getModel);
     }
 
     @Override
-    public NoteListResource getListResource(final CollectionModel<NoteResource> collectionModel) {
-        return new NoteListResource(new CommonModel(null, OK.getCode(), OK.getMessage()), collectionModel);
+    public NoteResource getListResource(final List<NoteModel> models) {
+        return new NoteResource(new CommonModel(null, OK.getCode(), OK.getMessage()), models);
     }
 
 }

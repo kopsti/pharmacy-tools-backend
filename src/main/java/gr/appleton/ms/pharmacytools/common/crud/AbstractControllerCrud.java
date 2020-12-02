@@ -4,8 +4,6 @@ import gr.appleton.ms.pharmacytools.common.constants.Constants;
 import gr.appleton.ms.pharmacytools.common.dto.CommonModel;
 import gr.appleton.ms.pharmacytools.common.enumerations.ClientResponses;
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,21 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Abstract Controller for CRUD operations.
  *
  * @param <R> the type parameter for Resource
- * @param <L> the type parameter for List of Resources
  * @param <M> the type parameter for Model
  * @param <D> the type parameter for Dao
  */
-public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> implements CrudController<M, D> {
+public abstract class AbstractControllerCrud<R, M extends AbstractModel, D> implements CrudController<M, D> {
 
     private static final String AGENT = Constants.AGENT;
     private static final ClientResponses OK = ClientResponses.OK;
@@ -49,42 +45,30 @@ public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> i
 
         return ResponseEntity.created(
             MvcUriComponentsBuilder.fromController(getClass()).path("/{id}").buildAndExpand(createdModel.getId())
-                .toUri()).body(getResource(createdModel, true));
+                .toUri()).body(getResource(createdModel));
     }
 
     /**
      * Retrieve an entity by its id.
      *
-     * @param id         the entity's id
-     * @param withCommon the flag to include common properties or not
+     * @param id the entity's id
      * @return the entity that was retrieved
      * @throws GenericException the generic exception
      */
     @GetMapping("{id}")
-    public ResponseEntity<R> retrieveById(@PathVariable final long id,
-                                          @RequestParam(value = "withCommon", required = false, defaultValue = "true")
-                                              boolean withCommon) throws GenericException {
-
-        return ResponseEntity.ok(getResource(service().retrieveById(id), withCommon));
+    public ResponseEntity<R> retrieveById(@PathVariable final long id) throws GenericException {
+        return ResponseEntity.ok(getResource(service().retrieveById(id)));
     }
 
     /**
      * Retrieve all entities.
      *
-     * @param q the query to filter results
      * @return the entities that were retrieved
      * @throws GenericException the generic exception
      */
     @GetMapping
-    public ResponseEntity<L> retrieveAll(@RequestParam(value = "q", required = false) final String q)
-        throws GenericException {
-
-        final CollectionModel<R> collectionModel = new CollectionModel<>(
-            service().retrieveAll().stream().map(model -> getResource(model, false)).collect(Collectors.toList()));
-
-        collectionModel.add(new Link(ServletUriComponentsBuilder.fromCurrentRequest().build().toUriString(), "self"));
-
-        return ResponseEntity.ok(getListResource(collectionModel));
+    public ResponseEntity<R> retrieveAll() throws GenericException {
+        return ResponseEntity.ok(getListResource(new ArrayList<>(service().retrieveAll())));
     }
 
     /**
@@ -100,7 +84,7 @@ public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> i
     public ResponseEntity<R> update(@RequestHeader(AGENT) final String username, @PathVariable final long id,
                                     @RequestBody final M model) throws GenericException {
 
-        return ResponseEntity.ok(getResource(service().update(username, id, model), true));
+        return ResponseEntity.ok(getResource(service().update(username, id, model)));
     }
 
     /**
@@ -121,11 +105,10 @@ public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> i
     /**
      * When overwritten, will return the resource for an entity.
      *
-     * @param model      the model
-     * @param withCommon the with common
+     * @param model the model
      * @return the resource to be returned
      */
-    public R getResource(final M model, final boolean withCommon) {
+    public R getResource(final M model) {
         //should be overwritten
         return null;
     }
@@ -136,7 +119,7 @@ public abstract class AbstractControllerCrud<R, L, M extends AbstractModel, D> i
      * @param model the model
      * @return the list of resource to be returned
      */
-    public L getListResource(final CollectionModel<R> model) {
+    public R getListResource(final List<M> model) {
         //should be overwritten
         return null;
     }
