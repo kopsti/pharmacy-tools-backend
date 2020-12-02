@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface SupplierRepository extends MyCrudRepository<SupplierDao, Long> {
 
     @Override
-    Iterable<SupplierDao> findByWildcard(@Param("wildcard") String wildcard);
+    Iterable<SupplierDao> findByWildcard(@Param("wildcard") String wildcard, boolean deleted);
 
 }

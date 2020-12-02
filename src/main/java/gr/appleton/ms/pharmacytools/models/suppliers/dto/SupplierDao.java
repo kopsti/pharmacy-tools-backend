@@ -24,13 +24,14 @@ import javax.persistence.Table;
 @NamedQuery(
     name = "SupplierDao.findByWildcard",
     query = "select s from SupplierDao s where "
-        + "s.qDescription like concat('%',:wildcard,'%') "
+        + "s.deleted = :deleted "
+        + "and (s.qDescription like concat('%',:wildcard,'%') "
         + "or s.qTitle like concat('%',:wildcard,'%') "
         + "or s.email like concat('%',:wildcard,'%') "
         + "or s.phoneNumber like concat('%',:wildcard,'%') "
         + "or s.taxAuthority like concat('%',:wildcard,'%') "
         + "or s.taxId like concat('%',:wildcard,'%') "
-        + "or s.qComments like concat('%',:wildcard,'%')"
+        + "or s.qComments like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.SUPPLIERS)

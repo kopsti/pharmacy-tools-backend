@@ -25,10 +25,11 @@ import javax.persistence.Table;
 @Setter
 @NamedQuery(
     name = "BankAccountDao.findByWildcard",
-    query = "select t from BankAccountDao t where " +
-        "t.supplier.qTitle like concat('%',:wildcard,'%') " +
-        "or t.supplier.qDescription like concat('%',:wildcard,'%') " +
-        "or t.bank.title like concat('%',:wildcard,'%')"
+    query = "select t from BankAccountDao t where "
+        + "t.deleted = :deleted "
+        + "and (t.supplier.qTitle like concat('%',:wildcard,'%') "
+        + "or t.supplier.qDescription like concat('%',:wildcard,'%') "
+        + "or t.bank.title like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.BANK_ACCOUNTS)

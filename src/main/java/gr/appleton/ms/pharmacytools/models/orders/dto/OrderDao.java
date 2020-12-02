@@ -26,13 +26,14 @@ import javax.persistence.Table;
 @NamedQuery(
     name = "OrderDao.findByWildcard",
     query = "select o from OrderDao o where "
-        + "o.qProduct like concat('%',:wildcard,'%') "
+        + "o.deleted = :deleted "
+        + "and (o.qProduct like concat('%',:wildcard,'%') "
         + "or o.supplier.qTitle like concat('%',:wildcard,'%') "
         + "or o.customer.qLastName like concat('%',:wildcard,'%') "
         + "or o.customer.homePhoneNumber like concat('%',:wildcard,'%') "
         + "or o.customer.mobilePhoneNumber like concat('%',:wildcard,'%') "
         + "or o.customer.email like concat('%',:wildcard,'%') "
-        + "or o.qComments like concat('%',:wildcard,'%')"
+        + "or o.qComments like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.ORDERS)

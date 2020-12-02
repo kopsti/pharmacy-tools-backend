@@ -22,6 +22,6 @@ public interface VerbalRepository extends MyCrudRepository<VerbalDao, Long> {
     Optional<VerbalDao> findAllByKey(final String key);
 
     @Override
-    Iterable<VerbalDao> findByWildcard(@Param("wildcard") String wildcard);
+    Iterable<VerbalDao> findByWildcard(@Param("wildcard") String wildcard, boolean deleted);
 
 }

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface BankAccountRepository extends MyCrudRepository<BankAccountDao, Long> {
 
     @Override
-    Iterable<BankAccountDao> findByWildcard(@Param("wildcard") String wildcard);
+    Iterable<BankAccountDao> findByWildcard(@Param("wildcard") String wildcard, boolean deleted);
 
 }

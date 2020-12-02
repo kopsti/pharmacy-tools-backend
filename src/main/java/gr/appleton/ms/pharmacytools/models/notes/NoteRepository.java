@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface NoteRepository extends MyCrudRepository<NoteDao, Long> {
 
     @Override
-    Iterable<NoteDao> findByWildcard(@Param("wildcard") String wildcard);
+    Iterable<NoteDao> findByWildcard(@Param("wildcard") String wildcard, boolean deleted);
 
 }

@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NamedQuery(name = "BankDao.findByWildcard", query = "select b from BankDao b")
+@NamedQuery(name = "BankDao.findByDeleted", query = "select b from BankDao b")
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.BANKS)
 public final class BankDao {

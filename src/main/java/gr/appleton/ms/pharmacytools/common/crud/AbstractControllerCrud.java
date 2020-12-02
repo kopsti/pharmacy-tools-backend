@@ -69,8 +69,11 @@ public abstract class AbstractControllerCrud<R, M extends AbstractModel, D> impl
      * @throws GenericException the generic exception
      */
     @GetMapping
-    public ResponseEntity<R> retrieveAll(@RequestParam(value = "q", required = false) final String q) throws GenericException {
-        return ResponseEntity.ok(getListResource(new ArrayList<>(service().retrieveAll(q))));
+    public ResponseEntity<R> retrieveAll(@RequestParam(value = "q", required = false) final String q,
+                                         @RequestParam(value = "d", required = false, defaultValue = "false")
+                                         final boolean d)
+        throws GenericException {
+        return ResponseEntity.ok(getListResource(new ArrayList<>(service().retrieveAll(q, d))));
     }
 
     /**

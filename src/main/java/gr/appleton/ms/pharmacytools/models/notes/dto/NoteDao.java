@@ -24,8 +24,9 @@ import javax.persistence.Table;
 @NamedQuery(
     name = "NoteDao.findByWildcard",
     query = "select n from NoteDao n where "
-    + "n.qContent like concat('%',:wildcard,'%') "
-    + "or n.qComments like concat('%',:wildcard,'%')"
+        + "n.deleted = :deleted "
+        + "and (n.qContent like concat('%',:wildcard,'%') "
+        + "or n.qComments like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.NOTES)

@@ -1,7 +1,6 @@
 package gr.appleton.ms.pharmacytools.common.crud;
 
 import gr.appleton.ms.pharmacytools.common.exceptions.GenericException;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
@@ -44,11 +43,12 @@ public interface CrudService<M, D> {
     /**
      * Retrieve all entities.
      *
-     * @param q the q
+     * @param q the search term
+     * @param d the flag to retrieve deleted items
      * @return the entities that were retrieved
      * @throws GenericException the generic exception
      */
-    List<M> retrieveAll(final String q) throws GenericException;
+    List<M> retrieveAll(final String q, final boolean d) throws GenericException;
 
     /**
      * Update an entity.
