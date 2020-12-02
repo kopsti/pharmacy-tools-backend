@@ -1,8 +1,8 @@
 package gr.appleton.ms.pharmacytools.common.crud;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 /**
  * The interface My crud repository.
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @param <D> the type parameter
  * @param <L> the type parameter
  */
-@Repository
+@NoRepositoryBean
 public interface MyCrudRepository<D, L> extends CrudRepository<D, L> {
 
     /**
@@ -19,6 +19,6 @@ public interface MyCrudRepository<D, L> extends CrudRepository<D, L> {
      * @param wildcard the wildcard
      * @return the iterable
      */
-    Iterable<D> findByWildCard(@Param("wildcard") String wildcard);
+    Iterable<D> findByWildcard(@Param("wildcard") String wildcard);
 
 }
