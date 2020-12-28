@@ -29,6 +29,7 @@ import javax.persistence.Table;
         + "o.deleted = :deleted "
         + "and (o.qProduct like concat('%',:wildcard,'%') "
         + "or o.supplier.qTitle like concat('%',:wildcard,'%') "
+        + "or o.customer.qFirstName like concat('%',:wildcard,'%') "
         + "or o.customer.qLastName like concat('%',:wildcard,'%') "
         + "or o.customer.homePhoneNumber like concat('%',:wildcard,'%') "
         + "or o.customer.mobilePhoneNumber like concat('%',:wildcard,'%') "
