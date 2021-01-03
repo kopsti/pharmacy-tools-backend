@@ -79,7 +79,7 @@ public class EmailService {
                 break;
         }
 
-        model.put("contact", VerbalKeys.CONTACT);
+        model.put("contact", common.getVerbalByKey(VerbalKeys.CONTACT));
 
         sendEmail(to, common.getVerbalByKey(flow.getSubjectKey()), geContentFromTemplate(model));
     }
