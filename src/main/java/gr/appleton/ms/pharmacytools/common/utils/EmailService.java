@@ -123,7 +123,13 @@ public class EmailService {
 
     private void addModelAttributes(final EmailFlows flow, Map<String, Object> model, final String extraBody) {
         model.put("intro", common.getVerbalByKey(flow.getIntroKey()));
-        model.put("body", "\n\n" + common.getVerbalByKey(flow.getBodyKey()) + (extraBody != null ? extraBody : ""));
+        model.put("body", common.getVerbalByKey(flow.getBodyKey()));
+        if (extraBody != null) {
+            model.put("linkExists", true);
+            model.put("link", extraBody);
+        } else {
+            model.put("linkExists", false);
+        }
         model.put("ending", common.getVerbalByKey(flow.getEndingKey()));
     }
 
