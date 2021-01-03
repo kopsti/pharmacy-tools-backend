@@ -123,7 +123,7 @@ public class EmailService {
 
     private void addModelAttributes(final EmailFlows flow, Map<String, Object> model, final String extraBody) {
         model.put("intro", common.getVerbalByKey(flow.getIntroKey()));
-        model.put("body", "\n\n<a href=\"" + common.getVerbalByKey(flow.getBodyKey()) + (extraBody != null ? extraBody : "") + "\">Login</a>");
+        model.put("body", "\n\n" + common.getVerbalByKey(flow.getBodyKey()) + (extraBody != null ? extraBody : ""));
         model.put("ending", common.getVerbalByKey(flow.getEndingKey()));
     }
 
