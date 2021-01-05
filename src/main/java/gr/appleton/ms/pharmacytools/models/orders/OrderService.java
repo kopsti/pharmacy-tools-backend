@@ -97,7 +97,6 @@ public final class OrderService extends AbstractServiceCrud<OrderModel, OrderDao
         dao.setSupplier(suppliers.retrieveDaoById(model.getSupplierId()));
         dao.setExpirationTimestamp(model.getExpirationTimestamp());
         dao.setComments(model.getComments());
-        dao.setQComments(GreekLatin.greek2latin(model.getComments()));
         return dao;
     }
 

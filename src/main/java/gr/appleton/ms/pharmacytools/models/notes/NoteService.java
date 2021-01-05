@@ -68,7 +68,6 @@ public final class NoteService extends AbstractServiceCrud<NoteModel, NoteDao>
         dao.setCompleted(model.isCompleted());
         dao.setOwner(userDao);
         dao.setComments(model.getComments());
-        dao.setQComments(GreekLatin.greek2latin(model.getComments()));
 
         return dao;
     }

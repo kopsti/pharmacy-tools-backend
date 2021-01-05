@@ -76,7 +76,6 @@ public final class CustomerService extends AbstractServiceCrud<CustomerModel, Cu
         dao.setAddress(model.getAddress());
         dao.setQAddress(GreekLatin.greek2latin(model.getAddress()));
         dao.setComments(model.getComments());
-        dao.setQComments(GreekLatin.greek2latin(model.getComments()));
         return dao;
     }
 

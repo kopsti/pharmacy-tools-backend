@@ -33,7 +33,6 @@ public final class UserDao {
     private Date lastLogoutTimestamp;
     private Date passInteractionTimestamp;
     private String comments;
-    private String qComments;
 
     @Column(insertable = false) private Date insertTimestamp;
     @Column(insertable = false) private Date updateTimestamp;

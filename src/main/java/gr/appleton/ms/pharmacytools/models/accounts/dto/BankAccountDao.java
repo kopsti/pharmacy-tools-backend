@@ -28,7 +28,6 @@ import javax.persistence.Table;
     query = "select t from BankAccountDao t where "
         + "t.deleted = :deleted "
         + "and (t.supplier.qTitle like concat('%',:wildcard,'%') "
-        + "or t.supplier.qDescription like concat('%',:wildcard,'%') "
         + "or t.bank.title like concat('%',:wildcard,'%'))"
 )
 @Entity
@@ -56,7 +55,6 @@ public class BankAccountDao {
     private boolean deleted;
     private Date deleteTimestamp;
     private String comments;
-    private String qComments;
 
     @Column(insertable = false) private Date insertTimestamp;
     @Column(insertable = false) private Date updateTimestamp;

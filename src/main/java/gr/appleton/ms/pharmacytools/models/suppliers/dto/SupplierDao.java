@@ -25,13 +25,10 @@ import javax.persistence.Table;
     name = "SupplierDao.findByWildcard",
     query = "select s from SupplierDao s where "
         + "s.deleted = :deleted "
-        + "and (s.qDescription like concat('%',:wildcard,'%') "
         + "or s.qTitle like concat('%',:wildcard,'%') "
         + "or s.email like concat('%',:wildcard,'%') "
         + "or s.phoneNumber like concat('%',:wildcard,'%') "
-        + "or s.taxAuthority like concat('%',:wildcard,'%') "
-        + "or s.taxId like concat('%',:wildcard,'%') "
-        + "or s.qComments like concat('%',:wildcard,'%'))"
+        + "or s.taxId like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.SUPPLIERS)
@@ -48,7 +45,6 @@ public final class SupplierDao {
     private String title;
     private String qTitle;
     private String description;
-    private String qDescription;
     private String email;
     private String phoneNumber;
     private String taxId;
@@ -56,7 +52,6 @@ public final class SupplierDao {
     private boolean deleted;
     private Date deleteTimestamp;
     private String comments;
-    private String qComments;
 
     @Column(insertable = false) private Date insertTimestamp;
     @Column(insertable = false) private Date updateTimestamp;

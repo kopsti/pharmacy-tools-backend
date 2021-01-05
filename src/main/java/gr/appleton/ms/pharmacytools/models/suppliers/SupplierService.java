@@ -67,13 +67,11 @@ public final class SupplierService extends AbstractServiceCrud<SupplierModel, Su
         dao.setTitle(model.getTitle());
         dao.setQTitle(GreekLatin.greek2latin(model.getTitle()));
         dao.setDescription(model.getDescription());
-        dao.setQDescription(GreekLatin.greek2latin(model.getDescription()));
         dao.setEmail(model.getEmail());
         dao.setTaxId(model.getTaxId());
         dao.setTaxAuthority(model.getTaxAuthority());
         dao.setPhoneNumber(model.getPhoneNumber());
         dao.setComments(model.getComments());
-        dao.setQComments(GreekLatin.greek2latin(model.getComments()));
         return dao;
     }
 

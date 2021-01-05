@@ -86,7 +86,6 @@ public class BankAccountService extends AbstractServiceCrud<BankAccountModel, Ba
         dao.setBank(banks.retrieveDaoById(model.getBankId()));
         dao.setSupplier(suppliers.retrieveDaoById(model.getSupplierId()));
         dao.setComments(model.getComments());
-        dao.setQComments(GreekLatin.greek2latin(model.getComments()));
         return dao;
     }
 

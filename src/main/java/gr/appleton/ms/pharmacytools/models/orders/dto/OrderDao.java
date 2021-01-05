@@ -33,8 +33,7 @@ import javax.persistence.Table;
         + "or o.customer.qLastName like concat('%',:wildcard,'%') "
         + "or o.customer.homePhoneNumber like concat('%',:wildcard,'%') "
         + "or o.customer.mobilePhoneNumber like concat('%',:wildcard,'%') "
-        + "or o.customer.email like concat('%',:wildcard,'%') "
-        + "or o.qComments like concat('%',:wildcard,'%'))"
+        + "or o.customer.email like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.ORDERS)
@@ -65,7 +64,6 @@ public final class OrderDao {
     private boolean deleted;
     private Date deleteTimestamp;
     private String comments;
-    private String qComments;
 
     @Column(insertable = false) private Date insertTimestamp;
     @Column(insertable = false) private Date updateTimestamp;

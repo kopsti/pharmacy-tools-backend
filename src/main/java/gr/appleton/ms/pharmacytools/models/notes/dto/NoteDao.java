@@ -25,8 +25,7 @@ import javax.persistence.Table;
     name = "NoteDao.findByWildcard",
     query = "select n from NoteDao n where "
         + "n.deleted = :deleted "
-        + "and (n.qContent like concat('%',:wildcard,'%') "
-        + "or n.qComments like concat('%',:wildcard,'%'))"
+        + "and (n.qContent like concat('%',:wildcard,'%'))"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.NOTES)
@@ -47,7 +46,6 @@ public final class NoteDao {
     private boolean deleted;
     private Date deleteTimestamp;
     private String comments;
-    private String qComments;
 
     @Column(insertable = false) private Date insertTimestamp;
     @Column(insertable = false) private Date updateTimestamp;
