@@ -25,7 +25,7 @@ import javax.persistence.Table;
     name = "SupplierDao.findByWildcard",
     query = "select s from SupplierDao s where "
         + "s.deleted = :deleted "
-        + "or s.qTitle like concat('%',:wildcard,'%') "
+        + "and (s.qTitle like concat('%',:wildcard,'%') "
         + "or s.email like concat('%',:wildcard,'%') "
         + "or s.phoneNumber like concat('%',:wildcard,'%') "
         + "or s.taxId like concat('%',:wildcard,'%')"
