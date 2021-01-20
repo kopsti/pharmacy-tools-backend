@@ -28,7 +28,7 @@ import javax.persistence.Table;
         + "or s.qTitle like concat('%',:wildcard,'%') "
         + "or s.email like concat('%',:wildcard,'%') "
         + "or s.phoneNumber like concat('%',:wildcard,'%') "
-        + "or s.taxId like concat('%',:wildcard,'%'))"
+        + "or s.taxId like concat('%',:wildcard,'%')"
 )
 @Entity
 @Table(schema = DbConstants.RETMAN_SCHEMA, name = DbConstants.SUPPLIERS)
